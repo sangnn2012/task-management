@@ -43,6 +43,10 @@ export class TasksService {
         return found;
     }
 
+    async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+        return this.taskRepository.createTask(createTaskDto);
+    }
+
     // getTaskById(id: string): Task {
     //     const found = this.tasks.find(t => t.id === id);
     //     if(!found) {
@@ -64,18 +68,4 @@ export class TasksService {
     //     task.status = status;
     //     return task;
     // }
-
-    // createTask(CreateTaskDto: CreateTaskDto): Task {
-    //     const { title, description } = CreateTaskDto;
-
-    //     const task: Task = {
-    //         id: uuidv1(),
-    //         title,
-    //         description,
-    //         status: TaskStatus.OPEN,
-    //     };
-    //     this.tasks.push(task);
-    //     return task;
-    // }
-    
 }
