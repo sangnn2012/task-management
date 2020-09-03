@@ -55,13 +55,21 @@ export class TasksService {
     //     return found;
     // }
 
-    // removeTask(id: string): void {
-    //     // const taskToRemove = this.tasks.find(t => t.id === id);
-    //     // this.tasks.splice(this.tasks.indexOf(taskToRemove), 1);
-    //     // find + splice = find
-    //     const found = this.getTaskById(id);
-    //     this.tasks = this.tasks.filter(task => task.id !== found.id);
-    // }
+    async removeTask(id: number): Promise<Task> {
+        // const taskToRemove = this.tasks.find(t => t.id === id);
+        // this.tasks.splice(this.tasks.indexOf(taskToRemove), 1);
+        // find + splice = filter
+        const found = await this.getTaskById(id);
+        return this.taskRepository.remove(found);
+    }
+
+    async deleteTask(id: number): Promise<void> {
+        const result = await this.taskRepository.delete(id);
+        
+        if (!result.affected) {
+            throw new NotFoundException(`Task with ID "${id}" not found!`)
+        }
+    }
 
     // updateTaskStatus(id: string, status: TaskStatus): Task {
     //     const task = this.getTaskById(id);
